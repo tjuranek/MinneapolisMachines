@@ -42,3 +42,4 @@ insert into ExteriorColors (Name) values
 insert into TransmissionTypes (Name) values
 	('Manual'),
 	('Automatic')
+
