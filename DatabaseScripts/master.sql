@@ -132,9 +132,9 @@ create table Vehicles(
 	constraint fk_Vehicles_Transmissions foreign key (TransmissionTypeId) references TransmissionTypes(TransmissionTypeId)
 );
 
--------------------------
+------------------------
 -- START SUBSCRIPT DATA
--------------------------
+------------------------
 use MinneapolisMachines
 go
 
@@ -176,3 +176,27 @@ insert into ExteriorColors (Name) values
 insert into TransmissionTypes (Name) values
 	('Manual'),
 	('Automatic')
+
+------------------------------
+-- START SUBSCRIPT PROCEDURES
+------------------------------
+use MinneapolisMachines
+go
+
+-- SPECIALS (create, delete, get all)
+create procedure CreateSpecial (@Title nvarchar(256), @Description nvarchar(MAX))
+as
+	insert into Specials (Title, Description) values
+		(@Title, @Description)
+go
+
+create procedure DeleteSpecial (@Id int)
+as
+	delete from Specials
+	where SpecialId = @Id
+go
+
+create procedure GetSpecials
+as
+	select * from Specials
+go

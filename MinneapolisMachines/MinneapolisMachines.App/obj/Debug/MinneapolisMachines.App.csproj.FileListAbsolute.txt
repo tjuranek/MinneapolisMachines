@@ -78,3 +78,7 @@ C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\obj\Deb
 C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\obj\Debug\MinneapolisMachines.App.csproj.CopyComplete
 C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\obj\Debug\MinneapolisMachines.App.dll
 C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\obj\Debug\MinneapolisMachines.App.pdb
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\bin\MinneapolisMachines.Data.dll
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\bin\MinneapolisMachines.Models.dll
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\bin\MinneapolisMachines.Data.pdb
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.App\bin\MinneapolisMachines.Models.pdb

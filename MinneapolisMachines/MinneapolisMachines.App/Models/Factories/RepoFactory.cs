@@ -18,9 +18,9 @@ namespace MinneapolisMachines.App.Models.Factories
             switch (_mode)
             {
                 case ("prod"):
-                    return new SpecialsRepoADO(_connectionString);
+                    return new ADOSpecialsRepo(_connectionString);
                 default:
-                    return new SpecialsRepoADO(_connectionString);     
+                    return new ADOSpecialsRepo(_connectionString);     
             }
         }
     }

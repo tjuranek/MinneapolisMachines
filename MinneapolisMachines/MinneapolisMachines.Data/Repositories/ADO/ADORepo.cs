@@ -11,16 +11,16 @@ namespace MinneapolisMachines.Data.Repositories.ADO
     /// <summary>
     /// Abstract class for ADO repositories to inherit from.
     /// </summary>
-    public abstract class ADORepository
+    public abstract class ADORepo
     {
         /// <summary>
-        /// Connects to and runs a stored procedure and returns the results.
+        /// Connects to and runs a stored procedure and returns the results as a DataTable.
         /// </summary>
         /// <param name="connectionString">The connections string to the database.</param>
         /// <param name="procedureName">The name of the stored procedure.</param>
         /// <param name="parameters">The list of SqlParameters to be added to the SqlCommand.</param>
         /// <returns>A SqlDataReader with any available results from the store procedure.</returns>
-        public virtual SqlDataReader RunStoredProcedure(string connectionString, string procedureName, List<SqlParameter> parameters = null)
+        public virtual DataTable RunStoredProcedure(string connectionString, string procedureName, List<SqlParameter> parameters = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -29,14 +29,19 @@ namespace MinneapolisMachines.Data.Repositories.ADO
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = procedureName;
 
-                foreach (SqlParameter param in parameters)
+                if (parameters != null)
                 {
-                    cmd.Parameters.Add(param);
+                    foreach (SqlParameter param in parameters)
+                    {
+                        cmd.Parameters.Add(param);
+                    }
                 }
 
                 conn.Open();
 
-                return cmd.ExecuteReader();
+                DataTable results = new DataTable();
+                results.Load(cmd.ExecuteReader());
+                return results;
             }
         }
     }

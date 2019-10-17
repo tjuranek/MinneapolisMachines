@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -17,21 +18,21 @@ namespace MinneapolisMachines.Models.Specials
         public string Description { get; set; }
 
         /// <summary>
-        /// Takes in a SqlDataReader and returns a list of specials from the SQL data.
+        /// Takes in a DataTable and returns a list of specials.
         /// </summary>
-        /// <param name="data">The SqlDataReader returned from database stored procedure.</param>
+        /// <param name="data">The DataTable returned from repository.</param>
         /// <returns>A list of specials.</returns>
-        public static List<Special> ParseList(SqlDataReader data)
+        public static List<Special> ParseList(DataTable data)
         {
             List<Special> specials = new List<Special>();
-
-            while (data.Read())
+            
+            foreach (DataRow row in data.Rows)
             {
                 specials.Add(new Special()
                 {
-                    SpecialId = int.Parse(data["SpecialId"].ToString()),
-                    Title = data["Title"].ToString(),
-                    Description = data["Description"].ToString()
+                    SpecialId = int.Parse(row["SpecialId"].ToString()),
+                    Title = row["Title"].ToString(),
+                    Description = row["Description"].ToString()
                 });
             }
 

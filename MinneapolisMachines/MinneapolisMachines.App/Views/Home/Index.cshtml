@@ -1,7 +1,23 @@
-﻿
+﻿@model List<MinneapolisMachines.Models.Specials.Special>
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
+
+@foreach (var special in Model)
+{
+    <div class="row">
+        <div class="col-1">
+            <p>@special.SpecialId</p>
+        </div>
+        <div class="col-3">
+            <p>@special.Title</p>
+        </div>
+        <div class="col-8">
+            <p>@special.Description</p>
+        </div>
+    </div>
+}
 

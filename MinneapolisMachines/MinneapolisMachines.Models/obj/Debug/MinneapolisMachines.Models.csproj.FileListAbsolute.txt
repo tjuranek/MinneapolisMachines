@@ -1,0 +1,6 @@
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.Models\bin\Debug\MinneapolisMachines.Models.dll
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.Models\bin\Debug\MinneapolisMachines.Models.pdb
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.Models\obj\Debug\MinneapolisMachines.Models.csprojAssemblyReference.cache
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.Models\obj\Debug\MinneapolisMachines.Models.csproj.CoreCompileInputs.cache
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.Models\obj\Debug\MinneapolisMachines.Models.dll
+C:\Repos\MinneapolisMachines\MinneapolisMachines\MinneapolisMachines.Models\obj\Debug\MinneapolisMachines.Models.pdb

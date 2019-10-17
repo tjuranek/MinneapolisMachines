@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MinneapolisMachines.Data.Interfaces;
 using MinneapolisMachines.Models.Specials;
 
@@ -13,11 +8,11 @@ namespace MinneapolisMachines.Data.Repositories.ADO
     /// <summary>
     /// ADO.NET Repository for creating and retriving Specials
     /// </summary>
-    public class SpecialsRepoADO : ADORepository, ISpecialsRepo
+    public class ADOSpecialsRepo : ADORepo, ISpecialsRepo
     {
         private string _connectionString;
 
-        public SpecialsRepoADO(string connectionString)
+        public ADOSpecialsRepo(string connectionString)
         {
             _connectionString = connectionString;
         }
