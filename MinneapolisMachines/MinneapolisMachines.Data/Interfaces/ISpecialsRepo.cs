@@ -14,6 +14,8 @@ namespace MinneapolisMachines.Data.Interfaces
     {
         void Create(string title, string description);
 
+        void Delete(int id);
+
         List<Special> GetAll();
     }
 }

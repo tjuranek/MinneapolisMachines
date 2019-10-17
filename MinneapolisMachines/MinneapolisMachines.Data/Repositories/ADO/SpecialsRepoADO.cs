@@ -33,22 +33,19 @@ namespace MinneapolisMachines.Data.Repositories.ADO
             RunStoredProcedure(_connectionString, "CreateSpecial", parameters);
         }
 
+        public void Delete(int id)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter("@Id", id)
+            };
+
+            RunStoredProcedure(_connectionString, "DeleteSpecial", parameters);
+        }
+
         public List<Special> GetAll()
         {
-            List<Special> specials = new List<Special>();
-            SqlDataReader data = RunStoredProcedure(_connectionString, "GetSpecials");
-
-            while (data.Read())
-            {
-                specials.Add(new Special()
-                {
-                    SpecialId = int.Parse(data["SpecialId"].ToString()),
-                    Title = data["Title"].ToString(),
-                    Description = data["Description"].ToString()
-                });
-            }
-
-            return specials;
+            return Special.ParseList(RunStoredProcedure(_connectionString, "GetSpecials"));
         }
     }
 }

@@ -14,10 +14,8 @@ namespace MinneapolisMachines.App.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ISpecialsRepo repository = RepoFactory.CreateSpecialsRepo();
-            List<Special> specials = repository.GetAll();
-
-            return View(specials);
+            ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
+            return View(specialsRepo.GetAll());
         }
     }
 }
