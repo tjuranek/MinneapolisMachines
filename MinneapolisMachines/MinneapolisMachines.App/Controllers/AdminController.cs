@@ -45,5 +45,21 @@ namespace MinneapolisMachines.App.Controllers
         }
 
         // GET: Makes
+        public ActionResult Makes()
+        {
+            return View();
+        }
+
+        // GET: Models
+        public ActionResult Models()
+        {
+            return View();
+        }
+
+        // GET: Specials
+        public ActionResult Specials()
+        {
+            return View();
+        }
     }
 }
