@@ -1,24 +1,16 @@
----------------------------
--- START SUBSCRIPT DATABASE
----------------------------
+-------------------------
+-- START SUBSCRIPT TABLES
+-------------------------
 use master
 go
 
 -- if necessary, delete the backups, kick out any active users, and delete the database
 if exists (select * from sys.databases where name = N'MinneapolisMachines')
 begin
-	exec msdb.dbo.sp_delete_database_backuphistory @database_name = N'MinneapolisMachines';
-	alter database MinneapolisMachines set single_user with rollback immediate;
-	drop database MinneapolisMachines;
+	drop table if exists Customers, Contacts, Specials, Makes, Models, BodyTypes,
+		InteriorColors, ExteriorColors, TransmissionTypes, Vehicles
 end
 
--- create the database
-create database MinneapolisMachines
-go
-
--------------------------
--- START SUBSCRIPT TABLES
--------------------------
 use MinneapolisMachines
 go
 
@@ -52,21 +44,21 @@ create table Specials(
 -- vehicle make	
 create table Makes(
 	MakeId int primary key identity(1, 1),
-	UserId int not null,
+	UserId nvarchar(128) not null,
 	Name nvarchar(32) not null,
 	DateCreated Date not null,
-	constraint fk_Makes_Users foreign key (UserId) references Users(UserId)
+	constraint fk_Makes_AspNetUsers foreign key (UserId) references AspNetUsers(Id)
 );
 
 -- vehicle model
 create table Models(
 	ModelId int primary key identity(1, 1),
 	MakeId int not null,
-	UserId int not null,
+	UserId nvarchar(128) not null,
 	Name nvarchar(32) not null,
 	DateCreate Date not null,
 	constraint fk_Models_Makes foreign key (MakeId) references Makes(MakeId),
-	constraint fk_Modles_Users foreign key (UserId) references Users(UserId)
+	constraint fk_Models_AspNetUsers foreign key (UserId) references AspNetUsers(Id)
 );
 
 -- vehicle body type

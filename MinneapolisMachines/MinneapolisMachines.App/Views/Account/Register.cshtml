@@ -1,0 +1,36 @@
+﻿@model MinneapolisMachines.App.Models.Accounts.AppUserViewModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(u => u.FirstName)
+    <br />
+    @Html.TextBoxFor(u => u.FirstName)
+    <br />
+
+    @Html.LabelFor(u => u.LastName)
+    <br />
+    @Html.TextBoxFor(u => u.LastName)
+    <br />
+
+    @Html.LabelFor(u => u.Email)
+    <br />
+    @Html.TextBoxFor(u => u.Email)
+    <br />
+
+    @Html.LabelFor(u => u.Password)
+    <br />
+    @Html.TextBoxFor(u => u.Password)
+    <br />
+
+    <p>
+        <button type="submit">Register</button>
+    </p>
+}

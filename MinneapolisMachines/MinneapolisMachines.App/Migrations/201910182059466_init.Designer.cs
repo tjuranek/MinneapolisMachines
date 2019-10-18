@@ -13,7 +13,7 @@ namespace MinneapolisMachines.App.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201910181604317_init"; }
+            get { return "201910182059466_init"; }
         }
         
         string IMigrationMetadata.Source

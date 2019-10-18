@@ -1,26 +1,31 @@
 namespace MinneapolisMachines.App.Migrations
 {
-    using MinneapolisMachines.App.Models.Accounts;
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Models.Accounts.AppDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MinneapolisMachines.App.Models.Accounts.AppDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(AppDbContext context)
+        protected override void Seed(MinneapolisMachines.App.Models.Accounts.AppDbContext context)
         {
-            //context.Roles.AddOrUpdate(r => r.Name,
-            //    new AppRole { Name = "Admin" },
-            //    new AppRole { Name = "Sales" },
-            //    new AppRole { Name = "Disabled" }
-            //);
+            //  This method will be called after migrating to the latest version.
 
-            //context.Users.AddOrUpdate(u => u.FirstName,
-            //    new AppUser { FirstName = "Thomas", LastName = "Juranek", Email = "thomas@juranek.com" }
-            //);
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }
