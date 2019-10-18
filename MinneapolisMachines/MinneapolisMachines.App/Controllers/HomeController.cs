@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MinneapolisMachines.App.Models.Factories;
 using MinneapolisMachines.Data.Interfaces;
-using MinneapolisMachines.Models.Specials;
 
 namespace MinneapolisMachines.App.Controllers
 {
@@ -16,6 +11,19 @@ namespace MinneapolisMachines.App.Controllers
         {
             ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
             return View(specialsRepo.GetAll());
+        }
+
+        // GET: Specials
+        public ActionResult Specials()
+        {
+            ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
+            return View(specialsRepo.GetAll());
+        }
+
+        // GET: Contact
+        public ActionResult Contact()
+        {
+            return View();
         }
     }
 }
