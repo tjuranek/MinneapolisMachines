@@ -42,23 +42,6 @@ create table Contacts(
 	Message nvarchar(MAX) not null
 );
 
--- roles for user permissions
-create table Roles(
-	RoleId int primary key identity(1, 1),
-	Name nvarchar(16) not null,
-);
-
--- users table for logins
-create table Users(
-	UserId int primary key identity(1, 1),
-	RoleId int not null,
-	FirstName nvarchar(64) not null,
-	LastName nvarchar(64) not null,
-	Email nvarchar(128) not null,
-	Password nvarchar(MAX) not null,
-	constraint fk_Users_Roles foreign key (RoleId) references Roles(RoleId)
-);
-
 -- special deals
 create table Specials(
 	SpecialId int primary key identity(1, 1),
@@ -137,11 +120,6 @@ create table Vehicles(
 ------------------------
 use MinneapolisMachines
 go
-
-insert into Roles (Name) values
-	('Admin'),
-	('Sales'),
-	('Disabled')
 
 insert into Specials (Title, Description) values
 	('Evening Service Special', '10% off service and repairs from 4pm to 9pm, Monday-Thursday. Tires are not eligible for discount. Total discount amount cannot exceed $50.'),
