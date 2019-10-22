@@ -1,7 +1,24 @@
-﻿
+﻿@model MinneapolisMachines.App.Models.Accounts.User
+
 @{
     ViewBag.Title = "Login";
 }
 
 <h2>Login</h2>
 
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(u => u.Email)
+    @Html.TextBoxFor(u => u.Email)
+    <br />
+
+    @Html.LabelFor(u => u.Password)
+    @Html.TextBoxFor(u => u.Password)
+    <br />
+
+    <p>
+        <button type="submit">Log in</button>
+    </p>
+}

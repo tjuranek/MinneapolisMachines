@@ -1,20 +1,40 @@
--------------------------
--- START SUBSCRIPT TABLES
--------------------------
+---------------------------
+-- START SUBSCRIPT DATABASE
+---------------------------
 use master
 go
 
--- if necessary, delete the backups, kick out any active users, and delete the database
 if exists (select * from sys.databases where name = N'MinneapolisMachines')
 begin
-	drop table if exists Customers, Contacts, Specials, Makes, Models, BodyTypes,
-		InteriorColors, ExteriorColors, TransmissionTypes, Vehicles
+	exec msdb.dbo.sp_delete_database_backuphistory @database_name = N'MinneapolisMachines';
+	alter database MinneapolisMachines set single_user with rollback immediate;
+	drop database MinneapolisMachines;
 end
 
+create database MinneapolisMachines
+go
+
+-------------------------
+-- START SUBSCRIPT TABLES
+-------------------------
 use MinneapolisMachines
 go
 
--- customers from vehicle purchases
+create table Roles(
+	RoleId int primary key identity(1, 1),
+	Name nvarchar(16) not null,
+);
+
+create table Users(
+	UserId int primary key identity(1, 1),
+	RoleId int not null,
+	FirstName nvarchar(64) not null,
+	LastName nvarchar(64) not null,
+	Email nvarchar(128) not null,
+	Password nvarchar(MAX) not null,
+	constraint fk_Users_Roles foreign key (RoleId) references Roles(RoleId)
+);
+
 create table Customers(
 	CustomerId int primary key identity(1, 1),
 	FirstName nvarchar(64) not null,
@@ -25,7 +45,6 @@ create table Customers(
 	Zip int not null
 );
 
--- contact form submissions, basically sales leads
 create table Contacts(
 	ContactId int primary key identity(1, 1),
 	Name nvarchar(128) not null,
@@ -34,31 +53,29 @@ create table Contacts(
 	Message nvarchar(MAX) not null
 );
 
--- special deals
 create table Specials(
 	SpecialId int primary key identity(1, 1),
 	Title nvarchar(256) not null,
 	Description nvarchar(MAX) not null
 );
 
--- vehicle make	
 create table Makes(
 	MakeId int primary key identity(1, 1),
-	UserId nvarchar(128) not null,
+	UserId int not null,
 	Name nvarchar(32) not null,
 	DateCreated Date not null,
-	constraint fk_Makes_AspNetUsers foreign key (UserId) references AspNetUsers(Id)
+	constraint fk_Makes_Users foreign key (UserId) references Users(UserId)
 );
 
 -- vehicle model
 create table Models(
 	ModelId int primary key identity(1, 1),
 	MakeId int not null,
-	UserId nvarchar(128) not null,
+	UserId int not null,
 	Name nvarchar(32) not null,
 	DateCreate Date not null,
 	constraint fk_Models_Makes foreign key (MakeId) references Makes(MakeId),
-	constraint fk_Models_AspNetUsers foreign key (UserId) references AspNetUsers(Id)
+	constraint fk_Models_User foreign key (UserId) references Users(UserId)
 );
 
 -- vehicle body type
@@ -146,6 +163,11 @@ insert into ExteriorColors (Name) values
 insert into TransmissionTypes (Name) values
 	('Manual'),
 	('Automatic')
+
+insert into Roles (Name) values
+	('Admin'),
+	('Sales'),
+	('Disabled')
 
 ------------------------------
 -- START SUBSCRIPT PROCEDURES

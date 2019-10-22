@@ -1,4 +1,4 @@
-﻿@model MinneapolisMachines.App.Models.Accounts.AppUserViewModel
+﻿@model MinneapolisMachines.App.Models.Accounts.AccountViewModel
 
 @{
     ViewBag.Title = "Register";
@@ -10,24 +10,34 @@
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(u => u.FirstName)
+    @Html.LabelFor(avm => avm.User.UserId)
     <br />
-    @Html.TextBoxFor(u => u.FirstName)
-    <br />
-
-    @Html.LabelFor(u => u.LastName)
-    <br />
-    @Html.TextBoxFor(u => u.LastName)
+    @Html.TextBoxFor(avm => avm.User.UserId)
     <br />
 
-    @Html.LabelFor(u => u.Email)
+    @Html.LabelFor(avm => avm.Role.RoleId)
     <br />
-    @Html.TextBoxFor(u => u.Email)
+    @Html.TextBoxFor(avm => avm.Role.RoleId)
     <br />
 
-    @Html.LabelFor(u => u.Password)
+    @Html.LabelFor(avm => avm.User.FirstName)
     <br />
-    @Html.TextBoxFor(u => u.Password)
+    @Html.TextBoxFor(avm => avm.User.FirstName)
+    <br />
+
+    @Html.LabelFor(avm => avm.User.LastName)
+    <br />
+    @Html.TextBoxFor(avm => avm.User.LastName)
+    <br />
+
+    @Html.LabelFor(avm => avm.User.Email)
+    <br />
+    @Html.TextBoxFor(avm => avm.User.Email)
+    <br />
+
+    @Html.LabelFor(avm => avm.User.Password)
+    <br />
+    @Html.TextBoxFor(avm => avm.User.Password)
     <br />
 
     <p>

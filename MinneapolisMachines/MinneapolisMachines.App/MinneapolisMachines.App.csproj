@@ -210,17 +210,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910182059466_init.cs" />
-    <Compile Include="Migrations\201910182059466_init.Designer.cs">
-      <DependentUpon>201910182059466_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Accounts\AppDbContext.cs" />
-    <Compile Include="Models\Accounts\AppRole.cs" />
-    <Compile Include="Models\Accounts\AppRoleManager.cs" />
-    <Compile Include="Models\Accounts\AppUser.cs" />
-    <Compile Include="Models\Accounts\AppUserManager.cs" />
-    <Compile Include="Models\Accounts\AppUserViewModel.cs" />
+    <Compile Include="Models\Accounts\AccountDbContext.cs" />
+    <Compile Include="Models\Accounts\AccountViewModel.cs" />
+    <Compile Include="Models\Accounts\Role.cs" />
+    <Compile Include="Models\Accounts\User.cs" />
     <Compile Include="Models\Factories\RepoFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -278,11 +271,6 @@
       <Project>{874A6B62-E4F3-4439-996C-DBC35529FF1E}</Project>
       <Name>MinneapolisMachines.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910182059466_init.resx">
-      <DependentUpon>201910182059466_init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

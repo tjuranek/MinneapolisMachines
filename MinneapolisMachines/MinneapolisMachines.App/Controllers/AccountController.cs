@@ -1,48 +1,46 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using MinneapolisMachines.App.Models.Accounts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
+using System.Linq;
+using MinneapolisMachines.App.Models.Accounts;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
 
 namespace MinneapolisMachines.App.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Register
-        public ActionResult Register()
+        // GET: Login 
+        public ActionResult Login()
         {
             return View();
         }
 
+        // POST: Login
         [HttpPost]
-        public ActionResult Register(AppUserViewModel userFormData)
-        {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            var authManager = HttpContext.GetOwinContext().Authentication;
-
-            if (ModelState.IsValid)
+        public ActionResult Login(User model)
+        { 
+            using (var db = new AccountDbContext())
             {
-                userManager.Create(new AppUser()
-                {
-                    FirstName = userFormData.FirstName,
-                    LastName = userFormData.LastName,
-                    Email = userFormData.Email,
-                    PasswordHash = userFormData.Password
-                });
+                User user = db.Users.FirstOrDefault(u => u.Email == model.Email);
 
-                return RedirectToAction("Login", "Account");
+                if (user != null && new PasswordHasher().VerifyHashedPassword(user.Password, model.Password) != PasswordVerificationResult.Failed)
+                {
+                    var identity = new ClaimsIdentity(new[]
+                    {
+                        new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.Role, db.Roles.FirstOrDefault(r => r.RoleId == user.RoleId).ToString())
+                    });
+
+                    var context = Request.GetOwinContext();
+                    var authManager = context.Authentication;
+
+                    authManager.SignIn(identity);
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
-            ModelState.AddModelError("", "Invalid");
-            return View(userFormData);
-        }
-
-        // GET: Login
-        public ActionResult Login()
-        {
             return View();
         }
 
@@ -53,7 +51,35 @@ namespace MinneapolisMachines.App.Controllers
             var authManager = context.Authentication;
 
             authManager.SignOut("ApplicationCookie");
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Register
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: Register
+        [HttpPost]
+        public ActionResult Register(AccountViewModel model)
+        {
+            using (var db = new AccountDbContext())
+            {
+                db.Users.Add(new User()
+                {
+                    UserId = model.User.UserId,
+                    RoleId = model.Role.RoleId,
+                    FirstName = model.User.FirstName,
+                    LastName = model.User.LastName,
+                    Email = model.User.Email,
+                    Password = new PasswordHasher().HashPassword(model.User.Password)
+                });
+
+                db.SaveChanges();
+            }
+
+            return View();
         }
     }
 }
