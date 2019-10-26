@@ -67,7 +67,6 @@ create table Makes(
 	constraint fk_Makes_Users foreign key (UserId) references Users(UserId)
 );
 
--- vehicle model
 create table Models(
 	ModelId int primary key identity(1, 1),
 	MakeId int not null,
@@ -78,31 +77,26 @@ create table Models(
 	constraint fk_Models_User foreign key (UserId) references Users(UserId)
 );
 
--- vehicle body type
 create table BodyTypes(
 	BodyTypeId int primary key identity(1, 1),
 	Name nvarchar(32)
 );
 
--- vehicle interior color
 create table InteriorColors(
 	InteriorColorId int primary key identity(1, 1),
 	Name nvarchar(32)
 );
 
--- vehicle exterior color
 create table ExteriorColors(
 	ExteriorColorId int primary key identity(1, 1),
 	Name nvarchar(32)
 );
 
--- vehicle transmission type
 create table TransmissionTypes(
 	TransmissionTypeId int primary key identity(1, 1),
 	Name nvarchar(32)
 );
 
--- vehicle
 create table Vehicles(
 	VehicleId int primary key identity(1, 1),
 	ModelId int not null,
@@ -175,7 +169,6 @@ insert into Roles (Name) values
 use MinneapolisMachines
 go
 
--- SPECIALS (create, delete, get all)
 create procedure CreateSpecial (@Title nvarchar(256), @Description nvarchar(MAX))
 as
 	insert into Specials (Title, Description) values

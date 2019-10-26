@@ -1,1 +1,16 @@
-﻿
+﻿.carousel-item-content {
+    background-color: #303030;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: white;
+}
+
+.carousel-item-text {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.main-container {
+    margin-top: 15px;
+}
