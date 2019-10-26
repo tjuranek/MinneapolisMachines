@@ -72,13 +72,18 @@ create table Models(
 	MakeId int not null,
 	UserId int not null,
 	Name nvarchar(32) not null,
-	DateCreate Date not null,
+	DateCreated Date not null,
 	constraint fk_Models_Makes foreign key (MakeId) references Makes(MakeId),
 	constraint fk_Models_User foreign key (UserId) references Users(UserId)
 );
 
 create table BodyTypes(
 	BodyTypeId int primary key identity(1, 1),
+	Name nvarchar(32)
+);
+
+create table BodyStyles(
+	BodyStyleId int primary key identity(1, 1),
 	Name nvarchar(32)
 );
 
@@ -101,6 +106,7 @@ create table Vehicles(
 	VehicleId int primary key identity(1, 1),
 	ModelId int not null,
 	BodyTypeId int not null,
+	BodyStyleId int not null,
 	ExteriorColorId int not null,
 	InteriorColorId int not null,
 	TransmissionTypeId int not null,
@@ -113,6 +119,7 @@ create table Vehicles(
 	ImageUrl nvarchar(MAX) not null
 	constraint fk_Vehicles_Models foreign key (ModelId) references Models(ModelId),
 	constraint fk_Vehicles_BodyTypes foreign key (BodyTypeId) references BodyTypes(BodyTypeId),
+	constraint fk_Vehicles_BodyStyles foreign key (BodyStyleId) references BodyStyles(BodyStyleId),
 	constraint fk_Vehicles_ExteriorColors foreign key (ExteriorColorId) references ExteriorColors(ExteriorColorId),
 	constraint fk_Vehicles_InteriorColors foreign key (InteriorColorId) references InteriorColors(InteriorColorId),
 	constraint fk_Vehicles_Transmissions foreign key (TransmissionTypeId) references TransmissionTypes(TransmissionTypeId)
@@ -181,7 +188,45 @@ as
 	where SpecialId = @Id
 go
 
-create procedure GetSpecials
+create procedure GetSpecials 
 as
 	select * from Specials
 go
+
+create procedure GetMakes
+as
+	select * from Makes
+go
+
+create procedure GetModels
+as
+	select * from Models
+go
+
+create procedure GetInteriorColors
+as
+	select * from InteriorColors
+go
+
+create procedure GetExteriorColors
+as
+	select * from ExteriorColors
+go
+
+create procedure GetBodyTypes
+as
+	select * from BodyTypes
+go
+
+create procedure GetBodyStyles
+as
+	select * from BodyStyles
+go
+
+create procedure GetTransmissionTypes
+as
+	select * from TransmissionTypes
+go
+
+
+
