@@ -14,7 +14,7 @@ namespace MinneapolisMachines.Data.Repositories.ADO
             _connectionString = connectionString;
         }
 
-        public void Create(int modelId, int bodyTypeId, int exteriorColorId, int interiorColorId, int transmissionTypeId, int bodyStyleId, int releaseYear, string VIN, int mileage, decimal MSRP, decimal salesPrice, string description, string imageUrl)
+        public void Create(int modelId, int bodyTypeId, int bodyStyleId, int exteriorColorId, int interiorColorId, int transmissionTypeId,  int releaseYear, string VIN, int mileage, decimal MSRP, decimal salesPrice, string description, string imageUrl)
         {
             List<SqlParameter> parameters = new List<SqlParameter>()
             {

@@ -137,6 +137,10 @@ insert into Specials (Title, Description) values
 	('Windshield Wipers from $26.99', 'Toyota OE - $26.99. Toyota OE Beam - $39.99. Restrictions apply. Offer valid until November 7, 2019. Total discount amount cannot exceed $20.')
 
 insert into BodyTypes (Name) values
+	('New'),
+	('Used')
+
+insert into BodyStyles (Name) values
 	('Car'),
 	('SUV'),
 	('Truck'),
@@ -244,5 +248,8 @@ as
 	select * from TransmissionTypes
 go
 
-
-
+create procedure CreateVehicle (@ModelId int, @BodyTypeId int, @BodyStyleId int, @ExteriorColorId int, @InteriorColorId int, @TransmissionTypeId int, @ReleaseYear int, @VIN nvarchar(32), @Mileage int, @MSRP decimal(10,2), @SalesPrice decimal(10, 2), @Description nvarchar(MAX), @ImageUrl nvarchar(MAX))
+as
+	insert into Vehicles (ModelId, BodyTypeId, BodyStyleId, ExteriorColorId, InteriorColorId, TransmissionTypeId, ReleaseYear, VIN, Mileage, MSRP, SalesPrice, Description, ImageUrl) values
+		(@ModelId, @BodyTypeId, @BodyStyleId, @ExteriorColorId, @InteriorColorId, @TransmissionTypeId, @ReleaseYear, @VIN, @Mileage, @MSRP, @SalesPrice, @Description, @ImageUrl)
+go

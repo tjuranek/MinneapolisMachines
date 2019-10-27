@@ -9,7 +9,7 @@ namespace MinneapolisMachines.Data.Interfaces
 {
     public interface IVehiclesRepo
     {
-        void Create(int modelId, int bodyTypeId, int exteriorColorId, int interiorColorId, int transmissionTypeId, int type, int releaseYear, string VIN, int mileage, decimal MSRP, decimal SalesPrice, string Description, string ImageUrl);
+        void Create(int modelId, int bodyTypeId, int bodyStyleId, int exteriorColorId, int interiorColorId, int transmissionTypeId, int releaseYear, string VIN, int mileage, decimal MSRP, decimal salesPrice, string description, string imageUrl);
 
         List<Vehicle> GetAll();
 

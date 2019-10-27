@@ -2,6 +2,7 @@
 using MinneapolisMachines.App.Models.Admin;
 using MinneapolisMachines.App.Models.Factories;
 using MinneapolisMachines.Data.Interfaces;
+using MinneapolisMachines.Models.Vehicles;
 
 namespace MinneapolisMachines.App.Controllers
 {
@@ -30,6 +31,17 @@ namespace MinneapolisMachines.App.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddVehicle(VehicleViewModel viewModel)
+        {
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+            Vehicle vehicle = viewModel.Vehicle;
+
+            vehiclesRepo.Create(vehicle.ModelId, vehicle.BodyTypeId, vehicle.BodyStyleId, vehicle.ExteriorColorId, vehicle.InteriorColorId, vehicle.TransmissionTypeId, vehicle.ReleaseYear, vehicle.VIN, vehicle.Mileage, vehicle.MSRP, vehicle.SalesPrice, vehicle.Description, vehicle.ImageUrl);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: EditVehicle
