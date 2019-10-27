@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using MinneapolisMachines.App.Models.Admin;
+using MinneapolisMachines.App.Models.Factories;
+using MinneapolisMachines.Data.Interfaces;
 
 namespace MinneapolisMachines.App.Controllers
 {
@@ -17,7 +16,20 @@ namespace MinneapolisMachines.App.Controllers
         // GET: AddVehicle
         public ActionResult AddVehicle()
         {
-            return View();
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+
+            VehicleViewModel viewModel = new VehicleViewModel
+            {
+                Makes = vehiclesRepo.GetMakes(),
+                Models = vehiclesRepo.GetModels(),
+                InteriorColors = vehiclesRepo.GetInteriorColors(),
+                ExteriorColors = vehiclesRepo.GetExteriorColors(),
+                BodyTypes = vehiclesRepo.GetBodyTypes(),
+                BodyStyles = vehiclesRepo.GetBodyStyles(),
+                TransmissionTypes = vehiclesRepo.GetTransmissionTypes()
+            };
+
+            return View(viewModel);
         }
 
         // GET: EditVehicle

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinneapolisMachines.Models.Vehicles
 {
@@ -12,10 +8,10 @@ namespace MinneapolisMachines.Models.Vehicles
         public int VehicleId { get; set; }
         public int ModelId { get; set; }
         public int BodyTypeId { get; set; }
+        public int BodyStyleId { get; set; }
         public int ExteriorColorId { get; set; }
         public int InteriorColorId { get; set; }
         public int TransmissionTypeId { get; set; }
-        public int Type { get; set; }
         public int ReleaseYear { get; set; }
         public string VIN { get; set; }
         public int Mileage { get; set; }
@@ -35,10 +31,10 @@ namespace MinneapolisMachines.Models.Vehicles
                     VehicleId = int.Parse(row["VehicleId"].ToString()),
                     ModelId = int.Parse(row["ModelId"].ToString()),
                     BodyTypeId = int.Parse(row["BodyTypeId"].ToString()),
+                    BodyStyleId = int.Parse(row["BodyStyleId"].ToString()),
                     ExteriorColorId = int.Parse(row["ExteriorColorId"].ToString()),
                     InteriorColorId = int.Parse(row["InteriorColorId"].ToString()),
                     TransmissionTypeId = int.Parse(row["TransmissionTypeId"].ToString()),
-                    Type = int.Parse(row["Type"].ToString()),
                     ReleaseYear = int.Parse(row["ReleaseYear"].ToString()),
                     VIN = row["VIN"].ToString(),
                     Mileage = int.Parse(row["Mileage"].ToString()),

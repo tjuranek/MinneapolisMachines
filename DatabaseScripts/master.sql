@@ -170,6 +170,22 @@ insert into Roles (Name) values
 	('Sales'),
 	('Disabled')
 
+insert into Users (RoleId, FirstName, LastName, Email, Password) values
+	(1, 'Thomas', 'Juranek', 'admin@minneapolismachines.com', 'AIi2YyoLDjvQl4camiOeqa0gNGYfPr3LY4f2bwmn6ERFgVtJA0vQ+SS189hn91Wjqg=='),
+	(2, 'Elle', 'Juranek', 'sales@minneapolismachines.com', 'ANH1MvrkMEYyABKMjDgiCvSg5d6efeulLGl53DPXdTEg/kBARVg04sb0UwXRYHTidA==')
+
+insert into Makes (Name, DateCreated, UserId) values
+	('Jeep', GETDATE(), 1),
+	('Ford', GETDATE(), 1),
+	('GMC', GETDATE(), 1)
+
+insert into Models (Name, DateCreated, UserId, MakeId) values
+	('Grand Cherokee', GETDATE(), 1, 1),
+	('Rubicon', GETDATE(), 1, 1),
+	('Explorer', GETDATE(), 1, 2),
+	('Expedition', GETDATE(), 1, 2),
+	('Yukon', GETDATE(), 1, 3)
+
 ------------------------------
 -- START SUBSCRIPT PROCEDURES
 ------------------------------

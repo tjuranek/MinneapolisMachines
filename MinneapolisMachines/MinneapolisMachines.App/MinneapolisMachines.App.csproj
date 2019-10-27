@@ -214,6 +214,7 @@
     <Compile Include="Models\Accounts\AccountViewModel.cs" />
     <Compile Include="Models\Accounts\Role.cs" />
     <Compile Include="Models\Accounts\User.cs" />
+    <Compile Include="Models\Admin\VehicleViewModel.cs" />
     <Compile Include="Models\Factories\RepoFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

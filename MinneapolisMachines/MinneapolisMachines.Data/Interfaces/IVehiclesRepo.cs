@@ -13,5 +13,18 @@ namespace MinneapolisMachines.Data.Interfaces
 
         List<Vehicle> GetAll();
 
+        List<Make> GetMakes();
+
+        List<Model> GetModels();
+
+        List<VehicleProperty> GetInteriorColors();
+
+        List<VehicleProperty> GetExteriorColors();
+
+        List<VehicleProperty> GetBodyTypes();
+
+        List<VehicleProperty> GetBodyStyles();
+
+        List<VehicleProperty> GetTransmissionTypes();
     }
 }

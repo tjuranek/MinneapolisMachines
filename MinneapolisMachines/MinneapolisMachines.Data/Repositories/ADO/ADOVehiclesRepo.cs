@@ -1,12 +1,7 @@
 ﻿using MinneapolisMachines.Data.Interfaces;
-using MinneapolisMachines.Models.Specials;
 using MinneapolisMachines.Models.Vehicles;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinneapolisMachines.Data.Repositories.ADO
 {
@@ -19,16 +14,16 @@ namespace MinneapolisMachines.Data.Repositories.ADO
             _connectionString = connectionString;
         }
 
-        public void Create(int modelId, int bodyTypeId, int exteriorColorId, int interiorColorId, int transmissionTypeId, int type, int releaseYear, string VIN, int mileage, decimal MSRP, decimal salesPrice, string description, string imageUrl)
+        public void Create(int modelId, int bodyTypeId, int exteriorColorId, int interiorColorId, int transmissionTypeId, int bodyStyleId, int releaseYear, string VIN, int mileage, decimal MSRP, decimal salesPrice, string description, string imageUrl)
         {
             List<SqlParameter> parameters = new List<SqlParameter>()
             {
                 new SqlParameter("@ModelId", modelId),
                 new SqlParameter("@BodyTypeId", bodyTypeId),
+                new SqlParameter("@BodyStyleId", bodyStyleId),
                 new SqlParameter("@ExteriorColorId", exteriorColorId),
                 new SqlParameter("@InteriorColorId", interiorColorId),
                 new SqlParameter("@TransmissionTypeId", transmissionTypeId),
-                new SqlParameter("@Type", type),
                 new SqlParameter("@ReleaseYear", releaseYear),
                 new SqlParameter("@VIN", VIN),
                 new SqlParameter("@Mileage", mileage),
@@ -44,6 +39,41 @@ namespace MinneapolisMachines.Data.Repositories.ADO
         public List<Vehicle> GetAll()
         {
             return Vehicle.ParseList(RunStoredProcedure(_connectionString, "GetVehicles"));
+        }
+
+        public List<Make> GetMakes()
+        {
+            return Make.ParseList(RunStoredProcedure(_connectionString, "GetMakes"));
+        }
+
+        public List<Model> GetModels()
+        {
+            return Model.ParseList(RunStoredProcedure(_connectionString, "GetModels"));
+        }
+
+        public List<VehicleProperty> GetInteriorColors()
+        {
+            return VehicleProperty.ParseList(RunStoredProcedure(_connectionString, "GetInteriorColors"));
+        }
+
+        public List<VehicleProperty> GetExteriorColors()
+        {
+            return VehicleProperty.ParseList(RunStoredProcedure(_connectionString, "GetExteriorColors"));
+        }
+
+        public List<VehicleProperty> GetBodyTypes()
+        {
+            return VehicleProperty.ParseList(RunStoredProcedure(_connectionString, "GetBodyTypes"));
+        }
+
+        public List<VehicleProperty> GetBodyStyles()
+        {
+            return VehicleProperty.ParseList(RunStoredProcedure(_connectionString, "GetBodyStyles"));
+        }
+
+        public List<VehicleProperty> GetTransmissionTypes()
+        {
+            return VehicleProperty.ParseList(RunStoredProcedure(_connectionString, "GetTransmissionTypes"));
         }
     }
 }

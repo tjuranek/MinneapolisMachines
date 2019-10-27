@@ -1,7 +1,102 @@
-﻿
+﻿@model MinneapolisMachines.App.Models.Admin.VehicleViewModel
+
 @{
     ViewBag.Title = "AddVehicle";
 }
 
-<h2>AddVehicle</h2>
+<h2>Add Vehicle</h2>
 
+<hr />
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.VehicleMake, "Make")
+            @Html.DropDownListFor(m => m.VehicleMake, Model.Makes.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.ModelId, "Model")
+            @Html.DropDownListFor(m => m.Vehicle.ModelId, Model.Models.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.BodyTypeId, "Type")
+            @Html.DropDownListFor(m => m.Vehicle.BodyTypeId, Model.BodyTypes.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.BodyStyleId, "Body Style")
+            @Html.DropDownListFor(m => m.Vehicle.BodyStyleId, Model.BodyStyles.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.ReleaseYear, "Year")
+            @Html.TextBoxFor(m => m.Vehicle.ReleaseYear, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.TransmissionTypeId, "Transmission")
+            @Html.DropDownListFor(m => m.Vehicle.TransmissionTypeId, Model.TransmissionTypes.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.ExteriorColorId, "Color")
+            @Html.DropDownListFor(m => m.Vehicle.ExteriorColorId, Model.ExteriorColors.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.InteriorColorId, "Interior")
+            @Html.DropDownListFor(m => m.Vehicle.InteriorColorId, Model.InteriorColors.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }), "-Choose One-", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.Mileage, "Mileage")
+            @Html.TextBoxFor(m => m.Vehicle.Mileage, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.VIN, "VIN #")
+            @Html.TextBoxFor(m => m.Vehicle.VIN, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.MSRP, "MSRP")
+            @Html.TextBoxFor(m => m.Vehicle.MSRP, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.SalesPrice, "Sale Price")
+            @Html.TextBoxFor(m => m.Vehicle.SalesPrice, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(m => m.Vehicle.Description, "Description")
+            @Html.TextAreaFor(m => m.Vehicle.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Vehicle.ImageUrl, "Picture")
+            @Html.TextBoxFor(m => m.Vehicle.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Vehicle</button>
+}

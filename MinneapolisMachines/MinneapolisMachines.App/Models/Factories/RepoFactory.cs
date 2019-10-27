@@ -19,5 +19,16 @@ namespace MinneapolisMachines.App.Models.Factories
                     return new ADOSpecialsRepo(_connectionString);     
             }
         }
+
+        public static IVehiclesRepo CreateVehiclesRepo()
+        {
+            switch (_mode)
+            {
+                case ("prod"):
+                    return new ADOVehiclesRepo(_connectionString);
+                default:
+                    return new ADOVehiclesRepo(_connectionString);
+            }
+        }
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MinneapolisMachines.Models;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using MinneapolisMachines.Models.Vehicles;
 
 namespace MinneapolisMachines.App.Models.Admin
@@ -16,14 +12,16 @@ namespace MinneapolisMachines.App.Models.Admin
 
         public List<Model> Models { get; set; }
 
-        public List<DropdownListItem> BodyType { get; set; }
+        public List<VehicleProperty> BodyTypes { get; set; }
 
-        public List<DropdownListItem> BodyStyle { get; set; }
+        public List<VehicleProperty> BodyStyles { get; set; }
 
-        public List<DropdownListItem> TransmissionType { get; set; }
+        public List<VehicleProperty> TransmissionTypes { get; set; }
 
-        public List<DropdownListItem> InteriorColors { get; set; }
+        public List<VehicleProperty> InteriorColors { get; set; }
 
-        public List<DropdownListItem> ExteriorColors { get; set; }
+        public List<VehicleProperty> ExteriorColors { get; set; }
+
+        public int VehicleMake { get; set; }
     }
 }
