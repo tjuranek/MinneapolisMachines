@@ -39,7 +39,23 @@ namespace MinneapolisMachines.App.Controllers
             IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
             Vehicle vehicle = viewModel.Vehicle;
 
-            vehiclesRepo.Create(vehicle.ModelId, vehicle.BodyTypeId, vehicle.BodyStyleId, vehicle.ExteriorColorId, vehicle.InteriorColorId, vehicle.TransmissionTypeId, vehicle.ReleaseYear, vehicle.VIN, vehicle.Mileage, vehicle.MSRP, vehicle.SalesPrice, vehicle.Description, vehicle.ImageUrl);
+            if (ModelState.IsValid)
+            {
+                vehiclesRepo.Create(vehicle.ModelId, vehicle.BodyTypeId, vehicle.BodyStyleId, vehicle.ExteriorColorId, vehicle.InteriorColorId, vehicle.TransmissionTypeId, vehicle.ReleaseYear, vehicle.VIN, vehicle.Mileage, vehicle.MSRP, vehicle.SalesPrice, vehicle.Description, vehicle.ImageUrl);
+            }
+            else
+            {
+                return View(new VehicleViewModel
+                {
+                    Makes = vehiclesRepo.GetMakes(),
+                    Models = vehiclesRepo.GetModels(),
+                    InteriorColors = vehiclesRepo.GetInteriorColors(),
+                    ExteriorColors = vehiclesRepo.GetExteriorColors(),
+                    BodyTypes = vehiclesRepo.GetBodyTypes(),
+                    BodyStyles = vehiclesRepo.GetBodyStyles(),
+                    TransmissionTypes = vehiclesRepo.GetTransmissionTypes()
+                });
+            }
 
             return RedirectToAction("Index", "Home");
         }

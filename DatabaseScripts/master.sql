@@ -110,6 +110,8 @@ create table Vehicles(
 	ExteriorColorId int not null,
 	InteriorColorId int not null,
 	TransmissionTypeId int not null,
+	IsFeatured bit not null,
+	IsSold bit not null,
 	ReleaseYear int not null,
 	VIN nvarchar(32) not null,
 	Mileage int not null,
@@ -133,7 +135,7 @@ go
 
 insert into Specials (Title, Description) values
 	('Evening Service Special', '10% off service and repairs from 4pm to 9pm, Monday-Thursday. Tires are not eligible for discount. Total discount amount cannot exceed $50.'),
-	('Buy 3 Tires and get the 4th for $1', 'For a limited time when you buy 3 tires you can get the 4th for only $1. Restrictions apply. See dealer for details. Offer valid only on OEM, OEA, and WIN on-program replacement tires purchased through the Toyota Coplete Maintenance Care website.'),
+	('Buy 3 Tires and get the 4th for $1', 'For a limited time when you buy 3 tires you can get the 4th for only $1. Restrictions apply. See dealer for details. Offer valid only on OEM, OEA, and WIN replacement tires.'),
 	('Windshield Wipers from $26.99', 'Toyota OE - $26.99. Toyota OE Beam - $39.99. Restrictions apply. Offer valid until November 7, 2019. Total discount amount cannot exceed $20.')
 
 insert into BodyTypes (Name) values
@@ -166,8 +168,8 @@ insert into ExteriorColors (Name) values
 	('White')
 
 insert into TransmissionTypes (Name) values
-	('Manual'),
-	('Automatic')
+	('Automatic'),
+	('Manual')
 
 insert into Roles (Name) values
 	('Admin'),
@@ -189,6 +191,13 @@ insert into Models (Name, DateCreated, UserId, MakeId) values
 	('Explorer', GETDATE(), 1, 2),
 	('Expedition', GETDATE(), 1, 2),
 	('Yukon', GETDATE(), 1, 3)
+
+insert into Vehicles (ModelId, BodyTypeId, BodyStyleId, ExteriorColorId, InteriorColorId, TransmissionTypeId, ReleaseYear, VIN, Mileage, MSRP, SalesPrice, Description, ImageUrl, IsSold, IsFeatured) values
+	(1, 2, 2, 4, 5, 1, 2006, 'JH4DA3450KS009535', 156282, 8000, 6500, 'This Jeep is a great value with decent mileage.', 'https://drop.ndtv.com/albums/AUTO/porsche-taycan-turbo/6401200x900_1_640x480.jpg', 0, 1),
+	(1, 2, 2, 3, 1, 2, 2003, 'JH4KA7660PC001313', 198232, 4000, 2300, 'Great first vehicle for your new driver.', 'https://drop.ndtv.com/albums/AUTO/porsche-taycan-turbo/6401200x900_1_640x480.jpg', 0, 0),
+	(2, 2, 2, 4, 5, 1, 2013, 'JH4DB1550NS000306', 156282, 14000, 12995, 'One owner, clean past. Great value.', 'https://drop.ndtv.com/albums/AUTO/porsche-taycan-turbo/6401200x900_1_640x480.jpg', 0, 0),
+	(2, 1, 2, 6, 1, 1, 2018, '1FTYR14U2XPC03940', 127, 45000, 41575, 'A brand new Jeep Rubicon, come take a test drive!', 'https://drop.ndtv.com/albums/AUTO/porsche-taycan-turbo/6401200x900_1_640x480.jpg', 0, 1)
+
 
 ------------------------------
 -- START SUBSCRIPT PROCEDURES
@@ -248,8 +257,19 @@ as
 	select * from TransmissionTypes
 go
 
-create procedure CreateVehicle (@ModelId int, @BodyTypeId int, @BodyStyleId int, @ExteriorColorId int, @InteriorColorId int, @TransmissionTypeId int, @ReleaseYear int, @VIN nvarchar(32), @Mileage int, @MSRP decimal(10,2), @SalesPrice decimal(10, 2), @Description nvarchar(MAX), @ImageUrl nvarchar(MAX))
+create procedure CreateVehicle (@ModelId int, @BodyTypeId int, @BodyStyleId int, @ExteriorColorId int, @InteriorColorId int, @TransmissionTypeId int, @ReleaseYear int, @VIN nvarchar(32), @Mileage int, @MSRP decimal(10,2), @SalesPrice decimal(10, 2), @Description nvarchar(MAX), @ImageUrl nvarchar(MAX), @IsFeatured bit)
 as
-	insert into Vehicles (ModelId, BodyTypeId, BodyStyleId, ExteriorColorId, InteriorColorId, TransmissionTypeId, ReleaseYear, VIN, Mileage, MSRP, SalesPrice, Description, ImageUrl) values
-		(@ModelId, @BodyTypeId, @BodyStyleId, @ExteriorColorId, @InteriorColorId, @TransmissionTypeId, @ReleaseYear, @VIN, @Mileage, @MSRP, @SalesPrice, @Description, @ImageUrl)
+	insert into Vehicles (ModelId, BodyTypeId, BodyStyleId, ExteriorColorId, InteriorColorId, TransmissionTypeId, ReleaseYear, VIN, Mileage, MSRP, SalesPrice, Description, ImageUrl, IsFeatured, IsSold) values
+		(@ModelId, @BodyTypeId, @BodyStyleId, @ExteriorColorId, @InteriorColorId, @TransmissionTypeId, @ReleaseYear, @VIN, @Mileage, @MSRP, @SalesPrice, @Description, @ImageUrl, @IsFeatured, 0)
+go
+
+create procedure GetVehicles
+as
+	select * from Vehicles
+go
+
+create procedure GetFeaturedVehicles
+as
+	select * from Vehicles
+	where IsFeatured = 1
 go

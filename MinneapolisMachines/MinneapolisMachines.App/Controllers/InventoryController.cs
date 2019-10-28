@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using MinneapolisMachines.App.Models.Admin;
+using MinneapolisMachines.App.Models.Factories;
+using MinneapolisMachines.Data.Interfaces;
+using MinneapolisMachines.Models.Vehicles;
 
 namespace MinneapolisMachines.App.Controllers
 {
@@ -11,7 +12,10 @@ namespace MinneapolisMachines.App.Controllers
         // GET: New
         public ActionResult New()
         {
-            return View();
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+            List<Vehicle> vehicles = vehiclesRepo.GetAll();
+
+            return View(vehicles);
         }
 
         // GET: Used

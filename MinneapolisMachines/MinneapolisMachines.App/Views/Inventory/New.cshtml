@@ -1,7 +1,15 @@
-﻿
+﻿@model List<MinneapolisMachines.Models.Vehicles.Vehicle>
+
 @{
     ViewBag.Title = "New";
 }
 
-<h2>New</h2>
+<h2>New Vehicles</h2>
+
+<hr />
+
+@foreach (var v in Model)
+{
+    <p>@v.ModelId</p>
+}
 

@@ -1,4 +1,4 @@
-﻿@model List<MinneapolisMachines.Models.Specials.Special>
+﻿@model MinneapolisMachines.App.Models.Home.HomeViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 <!-- jumbotron/carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        @for (var i = 0; i < Model.Count; i++)
+        @for (var i = 0; i < @Model.Specials.Count; i++)
         {
             if (i == 0)
             {
@@ -20,15 +20,15 @@
         }
     </ol>
     <div class="carousel-inner">
-        @for (var i = 0; i < Model.Count; i++)
+        @for (var i = 0; i < Model.Specials.Count; i++)
         {
             if (i == 0) //first item needs to have active class for the carousel to display
             {
                 <div class="carousel-item active">
                     <div class="carousel-item-content d-block w-100">
                         <div class="carousel-item-text">
-                            <h3>@Model.ElementAt(i).Title</h3>
-                            <p>@Model.ElementAt(i).Description</p>
+                            <h3>@Model.Specials.ElementAt(i).Title</h3>
+                            <p>@Model.Specials.ElementAt(i).Description</p>
                         </div>
                     </div>
                 </div>
@@ -38,8 +38,8 @@
                 <div class="carousel-item">
                     <div class="carousel-item-content d-block w-100">
                         <div class="carousel-item-text">
-                            <h3>@Model.ElementAt(i).Title</h3>
-                            <p>@Model.ElementAt(i).Description</p>
+                            <h3>@Model.Specials.ElementAt(i).Title</h3>
+                            <p>@Model.Specials.ElementAt(i).Description</p>
                         </div>
                     </div>
                 </div>
@@ -59,3 +59,8 @@
 <hr />
 
 <h3>Featured Vehicles</h3>
+
+@foreach (var v in Model.FeaturedVehicles)
+{
+    <p>@v.Description @v.VIN</p>
+}

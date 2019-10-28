@@ -26,5 +26,7 @@ namespace MinneapolisMachines.Data.Interfaces
         List<VehicleProperty> GetBodyStyles();
 
         List<VehicleProperty> GetTransmissionTypes();
+
+        List<Vehicle> GetFeaturedVehicles();
     }
 }

@@ -203,6 +203,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Models\Accounts\User.cs" />
     <Compile Include="Models\Admin\VehicleViewModel.cs" />
     <Compile Include="Models\Factories\RepoFactory.cs" />
+    <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using MinneapolisMachines.App.Models.Factories;
+using MinneapolisMachines.App.Models.Home;
 using MinneapolisMachines.Data.Interfaces;
 
 namespace MinneapolisMachines.App.Controllers
@@ -10,7 +11,15 @@ namespace MinneapolisMachines.App.Controllers
         public ActionResult Index()
         {
             ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
-            return View(specialsRepo.GetAll());
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+
+            HomeViewModel viewModel = new HomeViewModel
+            {
+                FeaturedVehicles = vehiclesRepo.GetFeaturedVehicles(),
+                Specials = specialsRepo.GetAll()
+            };
+
+            return View(viewModel);
         }
 
         // GET: Specials

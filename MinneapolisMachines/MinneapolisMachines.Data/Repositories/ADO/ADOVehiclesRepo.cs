@@ -75,5 +75,10 @@ namespace MinneapolisMachines.Data.Repositories.ADO
         {
             return VehicleProperty.ParseList(RunStoredProcedure(_connectionString, "GetTransmissionTypes"));
         }
+
+        public List<Vehicle> GetFeaturedVehicles()
+        {
+            return Vehicle.ParseList(RunStoredProcedure(_connectionString, "GetFeaturedVehicles"));
+        }
     }
 }
