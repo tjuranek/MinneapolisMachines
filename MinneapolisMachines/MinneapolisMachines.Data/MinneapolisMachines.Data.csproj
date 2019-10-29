@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IContactsRepo.cs" />
     <Compile Include="Interfaces\ISpecialsRepo.cs" />
     <Compile Include="Interfaces\IVehiclesRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ADO\ADOContactsRepo.cs" />
     <Compile Include="Repositories\ADO\ADORepo.cs" />
     <Compile Include="Repositories\ADO\ADOSpecialsRepo.cs" />
     <Compile Include="Repositories\ADO\ADOVehiclesRepo.cs" />

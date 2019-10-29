@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contacts\Contact.cs" />
     <Compile Include="Vehicles\VehicleProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specials\Special.cs" />

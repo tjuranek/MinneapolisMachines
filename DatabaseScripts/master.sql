@@ -273,3 +273,15 @@ as
 	select * from Vehicles
 	where IsFeatured = 1
 go
+
+create procedure CreateContact (@Name nvarchar(128), @Email nvarchar(128), @Phone int, @Message nvarchar(MAX))
+as
+	insert into Contacts (Name, Email, Phone, Message) values
+		(@Name, @Email, @Phone, @Message)
+go
+
+create procedure GetContacts 
+as
+	select * from Contacts
+go
+

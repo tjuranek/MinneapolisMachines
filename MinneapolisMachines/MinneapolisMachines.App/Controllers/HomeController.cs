@@ -2,6 +2,7 @@
 using MinneapolisMachines.App.Models.Factories;
 using MinneapolisMachines.App.Models.Home;
 using MinneapolisMachines.Data.Interfaces;
+using MinneapolisMachines.Models.Contacts;
 
 namespace MinneapolisMachines.App.Controllers
 {
@@ -33,6 +34,24 @@ namespace MinneapolisMachines.App.Controllers
         public ActionResult Contact()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contact(Contact model)
+        {
+            if (model.Phone == 0 && model.Email == null)
+            {
+                ModelState.AddModelError("phoneemail", "Please enter a phone number or email address.");
+                return View(model);
+            }
+
+            if (ModelState.IsValid)
+            {
+                IContactsRepo contactsRepo = RepoFactory.CreateContactsRepo();
+                contactsRepo.Create(model.Name, model.Email, model.Phone, model.Message);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

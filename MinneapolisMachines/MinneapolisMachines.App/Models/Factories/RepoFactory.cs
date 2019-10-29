@@ -30,5 +30,16 @@ namespace MinneapolisMachines.App.Models.Factories
                     return new ADOVehiclesRepo(_connectionString);
             }
         }
+
+        public static IContactsRepo CreateContactsRepo()
+        {
+            switch (_mode)
+            {
+                case ("prod"):
+                    return new ADOContactsRepo(_connectionString);
+                default:
+                    return new ADOContactsRepo(_connectionString);
+            }
+        }
     }
 }

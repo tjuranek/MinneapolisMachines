@@ -50,7 +50,19 @@ namespace MinneapolisMachines.App.Controllers
         // GET: Details / {id}
         public ActionResult Details(int id)
         {
-            return View(id);
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+
+            return View(new VehicleViewModel
+            {
+                Vehicle = vehiclesRepo.GetAll().FirstOrDefault(v => v.VehicleId == id),
+                Makes = vehiclesRepo.GetMakes(),
+                Models = vehiclesRepo.GetModels(),
+                InteriorColors = vehiclesRepo.GetInteriorColors(),
+                ExteriorColors = vehiclesRepo.GetExteriorColors(),
+                BodyTypes = vehiclesRepo.GetBodyTypes(),
+                BodyStyles = vehiclesRepo.GetBodyStyles(),
+                TransmissionTypes = vehiclesRepo.GetTransmissionTypes()
+            });
         }
     }
 }
