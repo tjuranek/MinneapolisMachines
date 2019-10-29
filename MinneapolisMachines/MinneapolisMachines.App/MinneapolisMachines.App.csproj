@@ -218,6 +218,7 @@
     <Compile Include="Models\Admin\VehicleViewModel.cs" />
     <Compile Include="Models\Factories\RepoFactory.cs" />
     <Compile Include="Models\Home\HomeViewModel.cs" />
+    <Compile Include="Models\Inventory\InventoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

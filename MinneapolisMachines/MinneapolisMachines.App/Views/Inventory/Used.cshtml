@@ -1,7 +1,41 @@
-﻿
+﻿@model MinneapolisMachines.App.Models.Inventory.InventoryViewModel
+
 @{
     ViewBag.Title = "Used";
 }
 
 <h2>Used</h2>
 
+@foreach (var v in Model.Vehicles)
+{
+    <div class="row border border-dark">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>@v.ReleaseYear @Model.Makes.FirstOrDefault(make => make.Id == @Model.Models.FirstOrDefault(model => model.Id == @v.ModelId).MakeId).Name @Model.Models.FirstOrDefault(model => model.Id == @v.ModelId).Name</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="@v.ImageUrl" class="img-thumbnail" />
+                </div>
+                <div class="col-md-3">
+                    <p><b>Body Style:</b> @Model.BodyStyles.FirstOrDefault(style => style.Id == @v.BodyStyleId).Name</p>
+                    <p><b>Trans:</b> @Model.TransmissionTypes.FirstOrDefault(trans => trans.Id == @v.TransmissionTypeId).Name</p>
+                    <p><b>Color:</b> @Model.ExteriorColors.FirstOrDefault(color => color.Id == @v.ExteriorColorId).Name</p>
+                </div>
+                <div class="col-md-3">
+                    <p><b>Interior:</b> @Model.InteriorColors.FirstOrDefault(color => color.Id == @v.InteriorColorId).Name</p>
+                    <p><b>Mileage:</b> @Model.BodyTypes.FirstOrDefault(type => type.Id == @v.BodyTypeId).Name</p>
+                    <p><b>VIN #:</b> @v.VIN</p>
+                </div>
+                <div class="col-md-3">
+                    <p><b>Sale Price:</b> @v.SalesPrice</p>
+                    <p><b>MSRP:</b> @v.MSRP</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+}
