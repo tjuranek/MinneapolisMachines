@@ -1,42 +1,117 @@
-﻿@model MinneapolisMachines.App.Models.Inventory.InventoryViewModel
-
+﻿
 @{
     ViewBag.Title = "Used";
 }
 
-<h2>Used</h2>
+<h3>Used Inventory</h3>
+<hr />
 
-@foreach (var v in Model.Vehicles)
-{
-    <div class="row border border-dark">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>@v.ReleaseYear @Model.Makes.FirstOrDefault(make => make.Id == @Model.Models.FirstOrDefault(model => model.Id == @v.ModelId).MakeId).Name @Model.Models.FirstOrDefault(model => model.Id == @v.ModelId).Name</h5>
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label for="keyword">Keyword</label>
+                    <input type="text" class="form-control mb-2" id="keyword" placeholder="Make, Model, Year">
+                </div>
+
+                <div class="col-auto">
+                    <label for="minPrice">Min Price</label>
+                    <input type="text" class="form-control mb-2" id="minPrice" placeholder="0">
+                </div>
+
+                <div class="col-auto">
+                    <label for="maxPrice">Max Price</label>
+                    <input type="text" class="form-control mb-2" id="maxPrice" placeholder="100,000">
+                </div>
+
+                <div class="col-auto">
+                    <label for="minYear">Min Year</label>
+                    <input type="text" class="form-control mb-2" id="minYear" placeholder="2000">
+                </div>
+
+                <div class="col-auto">
+                    <label for="maxYear">Max Year</label>
+                    <input type="text" class="form-control mb-2" id="maxYear" placeholder="2019">
+                </div>
+
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary mb-2" onclick="search()">Search</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="@v.ImageUrl" class="img-thumbnail" />
-                </div>
-                <div class="col-md-3">
-                    <p><b>Body Style:</b> @Model.BodyStyles.FirstOrDefault(style => style.Id == @v.BodyStyleId).Name</p>
-                    <p><b>Trans:</b> @Model.TransmissionTypes.FirstOrDefault(trans => trans.Id == @v.TransmissionTypeId).Name</p>
-                    <p><b>Color:</b> @Model.ExteriorColors.FirstOrDefault(color => color.Id == @v.ExteriorColorId).Name</p>
-                </div>
-                <div class="col-md-3">
-                    <p><b>Interior:</b> @Model.InteriorColors.FirstOrDefault(color => color.Id == @v.InteriorColorId).Name</p>
-                    <p><b>Mileage:</b> @Model.BodyTypes.FirstOrDefault(type => type.Id == @v.BodyTypeId).Name</p>
-                    <p><b>VIN #:</b> @v.VIN</p>
-                </div>
-                <div class="col-md-3">
-                    <p><b>Sale Price:</b> @v.SalesPrice</p>
-                    <p><b>MSRP:</b> @v.MSRP</p>
-                    @Html.ActionLink("Details", "Details", "Inventory", new { id = @v.VehicleId }, null)
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
+</div>
 
-    <br />
-}
+<hr />
+<br />
+
+<div id="searchResults">
+
+</div>
+
+<script>
+    function search() {
+        $("#searchResults").empty();
+
+        var keyword = document.getElementById("keyword").value;
+        var minPrice = document.getElementById("minPrice").value;
+        var maxPrice = document.getElementById("maxPrice").value;
+        var minYear = document.getElementById("minYear").value;
+        var maxYear = document.getElementById("maxYear").value;
+
+        if (keyword == "") {
+            keyword = " ";
+        }
+
+        if (minPrice == "") {
+            minPrice = 0;
+        }
+
+        if (maxPrice == "") {
+            maxPrice = 1000000;
+        }
+
+        if (minYear == "") {
+            minYear = 2000;
+        }
+
+        if (maxYear == "") {
+            maxYear = 2020;
+        }
+
+        var url = "http://localhost:63569/api/search/used/" + keyword + "/" + minPrice + "/" + maxPrice + "/" + minYear + "/" + maxYear;
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            success: function (data) {
+                if (data.length == 0) {
+                    alert("No results found!");
+                }
+
+                console.log(data);
+
+                $.each(data, function (index, vehicle) {
+                    var row = '<div class="row"><div class="border border-dark"><div class="row">';
+                    row += '<div class="col-md-12"><h5>' + vehicle.year + ' ' + vehicle.make + ' ' + vehicle.model + '</h5></div>';
+                    row += '<div class="col-md-3"><img src="' + vehicle.imageUrl + '" class="img-thumbnail" /></div>';
+                    row += '<div class="col-md-3"><p><b>Body Style:</b> ' + vehicle.style + '</p><p><b>Trans:</b> ' + vehicle.transmission + '</p><p><b>Color:</b> ' + vehicle.color + '</p></div>';
+                    row += '<div class="col-md-3"><p><b>Interior:</b> ' + vehicle.interior + '</p><p><b>Mileage:</b> ' + vehicle.mileage + '</p><p><b>VIN #:</b> ' + vehicle.vin + '</p></div>';
+                    row += '<div class="col-md-3"><p><b>Sale Price:</b> ' + vehicle.salePrice + '</p><p><b>MSRP:</b> ' + vehicle.msrp + '</p><p><a href="http://localhost:63569/Inventory/Details/' + vehicle.id + '">Details</a></p></div>';
+                    row += '</div></div></div>';
+                    row += '<br />';
+
+                    $("#searchResults").append(row);
+                });
+            },
+            error: function () {
+                alert("Please fill out the entire search form.");
+            }
+        });
+    }
+</script>

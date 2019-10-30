@@ -56,11 +56,20 @@
     </a>
 </div>
 
-<hr />
+<br />
 
 <h3>Featured Vehicles</h3>
+<hr />
 
-@foreach (var v in Model.FeaturedVehicles)
-{
-    <p>@v.Description @v.VIN</p>
-}
+<div class="row">
+    @foreach (var v in Model.FeaturedVehicles)
+    {
+        <div class="col-md-3">
+            <div class="border border-dark text-center">
+                <img src="@v.ImageUrl" class="img-thumbnail" />
+                <h5>@v.ReleaseYear @Model.Makes.FirstOrDefault(make => make.Id == @Model.Models.FirstOrDefault(model => model.Id == @v.ModelId).MakeId).Name @Model.Models.FirstOrDefault(model => model.Id == @v.ModelId).Name</h5>
+                <p>$@v.SalesPrice</p>
+            </div>
+        </div>
+    }
+</div>

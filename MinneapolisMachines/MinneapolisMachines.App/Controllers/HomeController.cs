@@ -17,7 +17,9 @@ namespace MinneapolisMachines.App.Controllers
             HomeViewModel viewModel = new HomeViewModel
             {
                 FeaturedVehicles = vehiclesRepo.GetFeaturedVehicles(),
-                Specials = specialsRepo.GetAll()
+                Specials = specialsRepo.GetAll(),
+                Makes = vehiclesRepo.GetMakes(),
+                Models = vehiclesRepo.GetModels()
             };
 
             return View(viewModel);

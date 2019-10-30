@@ -12,5 +12,9 @@ namespace MinneapolisMachines.App.Models.Home
         public List<Vehicle> FeaturedVehicles { get; set; }
 
         public List<Special> Specials { get; set; }
+
+        public List<Make> Makes { get; set; }
+
+        public List<Model> Models { get; set; }
     }
 }

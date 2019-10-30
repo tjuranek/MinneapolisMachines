@@ -30,6 +30,7 @@ namespace MinneapolisMachines.Data.Repositories.ADO
                 new SqlParameter("@MSRP", MSRP),
                 new SqlParameter("@SalesPrice", salesPrice),
                 new SqlParameter("@Description", description),
+                new SqlParameter("@IsFeatured", false),
                 new SqlParameter("@ImageUrl", imageUrl)
             };
 

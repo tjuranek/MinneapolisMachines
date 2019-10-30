@@ -32,19 +32,7 @@ namespace MinneapolisMachines.App.Controllers
         // GET: Used
         public ActionResult Used()
         {
-            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
-
-            return View(new InventoryViewModel()
-            {
-                Vehicles = vehiclesRepo.GetAll().Where(v => v.BodyTypeId == 2).ToList(),
-                Makes = vehiclesRepo.GetMakes(),
-                Models = vehiclesRepo.GetModels(),
-                InteriorColors = vehiclesRepo.GetInteriorColors(),
-                ExteriorColors = vehiclesRepo.GetExteriorColors(),
-                BodyTypes = vehiclesRepo.GetBodyTypes(),
-                BodyStyles = vehiclesRepo.GetBodyStyles(),
-                TransmissionTypes = vehiclesRepo.GetTransmissionTypes()
-            });
+            return View();
         }
 
         // GET: Details / {id}
