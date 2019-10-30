@@ -1,7 +1,39 @@
-﻿
+﻿@model MinneapolisMachines.App.Models.Admin.UserRoleViewModel
+
 @{
     ViewBag.Title = "Users";
 }
 
-<h2>Users</h2>
+<h3>Users</h3>
 
+<hr /> 
+
+<div class="row">
+    <div class="col-md-12">
+        <p>@Html.ActionLink("Add a new User", "AddUser", "Admin")</p>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.LastName</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.Email</td>
+                        <td>@Model.Roles.FirstOrDefault(r => r.RoleId == user.RoleId).Name</td>
+                        <td>@Html.ActionLink("Edit", "EditUser", "Admin", new { userId = user.UserId }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

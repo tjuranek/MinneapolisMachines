@@ -1,8 +1,14 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using MinneapolisMachines.App.Models.Admin;
 using MinneapolisMachines.App.Models.Factories;
 using MinneapolisMachines.Data.Interfaces;
 using MinneapolisMachines.Models.Vehicles;
+using MinneapolisMachines.App.Models.Accounts;
+using Microsoft.AspNet.Identity;
+using System.Data.Entity;
+using System;
+using System.Security.Claims;
 
 namespace MinneapolisMachines.App.Controllers
 {
@@ -69,24 +75,118 @@ namespace MinneapolisMachines.App.Controllers
         // GET: Users
         public ActionResult Users()
         {
-            return View();
+            var viewModel = new UserRoleViewModel();
+
+            using (var db = new AccountDbContext())
+            {
+                viewModel.Users = db.Users.ToList();
+                viewModel.Roles = db.Roles.ToList();
+            }
+
+            return View(viewModel);
         }
 
         // GET: Add User
         public ActionResult AddUser()
         {
-            return View();
+            var viewModel = new UserRoleViewModel();
+
+            using (var db = new AccountDbContext())
+            {
+                viewModel.Users = db.Users.ToList();
+                viewModel.Roles = db.Roles.ToList();
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddUser(UserRoleViewModel model)
+        {
+            using (var db = new AccountDbContext())
+            {
+                db.Users.Add(new User()
+                {
+                    UserId = model.SelectedUser.UserId,
+                    RoleId = model.SelectedUser.RoleId,
+                    FirstName = model.SelectedUser.FirstName,
+                    LastName = model.SelectedUser.LastName,
+                    Email = model.SelectedUser.Email,
+                    Password = new PasswordHasher().HashPassword(model.SelectedUser.Password)
+                });
+
+                db.SaveChanges();
+
+                model.Users = db.Users.ToList();
+                model.Roles = db.Roles.ToList();
+            };
+
+            return View("Users", model);
         }
 
         // GET: Edit User
-        public ActionResult EditUser()
+        public ActionResult EditUser(int userId)
         {
-            return View();
+            var viewModel = new UserRoleViewModel();
+
+            using (var db = new AccountDbContext())
+            {
+                viewModel.SelectedUser = db.Users.FirstOrDefault(u => u.UserId == userId);
+                viewModel.Users = db.Users.ToList();
+                viewModel.Roles = db.Roles.ToList();
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(UserRoleViewModel model)
+        {
+            using (var db = new AccountDbContext())
+            {
+                db.Entry(model.SelectedUser).State = EntityState.Modified;
+                db.SaveChanges();
+
+                model.Users = db.Users.ToList();
+                model.Roles = db.Roles.ToList();
+            };
+
+            return View("Users", model);
         }
 
         // GET: Makes
         public ActionResult Makes()
         {
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+
+            using (var db = new AccountDbContext())
+            {
+                MakeModelViewModel viewModel = new MakeModelViewModel()
+                {
+                    Makes = vehiclesRepo.GetMakes(),
+                    Users = db.Users.ToList()
+                };
+
+                return View("Makes", viewModel);
+            };
+        }
+
+        [HttpPost]
+        public ActionResult Makes(MakeModelViewModel model)
+        {
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+
+            using (var db = new AccountDbContext())
+            {
+                string currentUserId = User.Identity.GetUserId();
+                User currentUser = db.Users.FirstOrDefault(x => x.UserId == int.Parse(currentUserId));
+
+                model.Make.DateCreated = DateTime.Now;
+                model.Make.UserId = currentUser.UserId;
+            }
+
+
             return View();
         }
 
@@ -99,7 +199,33 @@ namespace MinneapolisMachines.App.Controllers
         // GET: Specials
         public ActionResult Specials()
         {
-            return View();
+            ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
+
+            SpecialViewModel viewModel = new SpecialViewModel()
+            {
+                Specials = specialsRepo.GetAll()
+            };
+
+            return View(viewModel);
+        }
+
+        // GET: Specials (for removing a special)
+        public ActionResult DeleteSpecial(int specialId)
+        {
+            ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
+            specialsRepo.Delete(specialsRepo.GetAll().FirstOrDefault(s => s.SpecialId == specialId).SpecialId);
+
+            return RedirectToAction("Specials", "Home", specialsRepo.GetAll());
+        }
+
+        // POST: Specials
+        [HttpPost]
+        public ActionResult Specials(SpecialViewModel model)
+        {
+            ISpecialsRepo specialsRepo = RepoFactory.CreateSpecialsRepo();
+            specialsRepo.Create(model.Special.Title, model.Special.Description);
+
+            return RedirectToAction("Specials", "Home", specialsRepo.GetAll());
         }
     }
 }

@@ -18,7 +18,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         @Html.ActionLink("Minneapolis Machines", "Index", new { Controller = "Home" }, new { @class = "navbar-brand" })
 
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,6 +39,50 @@
                 <li class="nav-item">
                     @Html.ActionLink("Contact", "Contact", new { Controller = "Home" }, new { @class = "nav-link" })
                 </li>
+
+                @using Microsoft.AspNet.Identity
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sales
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("Index", "Index", new { Controller = "Sales" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Purchase", "Purchase", new { Controller = "Sales" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Reports
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("Index", "Index", new { Controller = "Reports" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Inventory", "Inventory", new { Controller = "Reports" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Sales", "Sales", new { Controller = "Reports" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("Index", "Vehicles", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Add Vehicle", "AddVehicle", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            @Html.ActionLink("Users", "Users", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Add User", "AddUser", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account" }, new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            @Html.ActionLink("Makes", "Makes", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Models", "Models", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            @Html.ActionLink("Specials", "Specials", new { Controller = "Admin" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+                }
             </ul>
         </div>
     </nav>
@@ -47,9 +90,6 @@
     <div class="container main-container">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Thomas Juranek</p>
-        </footer>
     </div>
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>

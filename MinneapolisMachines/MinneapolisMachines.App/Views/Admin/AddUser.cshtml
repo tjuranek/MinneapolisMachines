@@ -1,7 +1,51 @@
-﻿
+﻿@model MinneapolisMachines.App.Models.Admin.UserRoleViewModel
+
 @{
     ViewBag.Title = "AddUser";
 }
 
-<h2>AddUser</h2>
+<h3>Add User</h3>
 
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.ValidationSummary()
+
+        @using (Html.BeginForm())
+        {
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(u => u.SelectedUser.FirstName, "First Name")
+                    @Html.TextBoxFor(u => u.SelectedUser.FirstName, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(u => u.SelectedUser.LastName, "Last Name")
+                    @Html.TextBoxFor(u => u.SelectedUser.LastName, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(u => u.SelectedUser.Email, "Email")
+                    @Html.TextBoxFor(u => u.SelectedUser.Email, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(u => u.SelectedUser.RoleId, "Role")
+                    @Html.DropDownListFor(u => u.SelectedUser.RoleId, Model.Roles.Select(m => new SelectListItem { Text = m.Name, Value = m.RoleId.ToString() }), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(u => u.SelectedUser.Password, "Password")
+                    @Html.TextBoxFor(u => u.SelectedUser.Password, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add User</button>
+        }
+    </div>
+</div>

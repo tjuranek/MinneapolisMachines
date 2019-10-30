@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MinneapolisMachines.Models.Specials
     public class Special
     {
         public int SpecialId { get; set; }
+
+        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
 

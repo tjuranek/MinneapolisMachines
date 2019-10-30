@@ -29,8 +29,8 @@ namespace MinneapolisMachines.App.Controllers
                     {
                         new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
                         new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.Role, db.Roles.FirstOrDefault(r => r.RoleId == user.RoleId).ToString())
-                    });
+                        new Claim(ClaimTypes.Role, db.Roles.FirstOrDefault(r => r.RoleId == user.RoleId).Name)
+                    }, "ApplicationCookie");
 
                     var context = Request.GetOwinContext();
                     var authManager = context.Authentication;
@@ -79,7 +79,7 @@ namespace MinneapolisMachines.App.Controllers
                 db.SaveChanges();
             }
 
-            return View();
+            return RedirectToAction("Users");
         }
     }
 }
