@@ -1,7 +1,50 @@
-﻿
+﻿@model MinneapolisMachines.App.Models.Admin.MakeModelViewModel
+
 @{
     ViewBag.Title = "Models";
 }
 
-<h2>Models</h2>
+<h3>Models</h3>
+<hr />
 
+<div class="row">
+    <div class="col-md-12">
+        @Html.ValidationSummary()
+
+        @using (Html.BeginForm())
+        {
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.Model.Name)
+                    @Html.TextBoxFor(m => m.Model.Name, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
+    </div>
+</div>
+
+<hr />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Date Added</th>
+            <th>User</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model.Models)
+        {
+            <tr>
+                <td>@Model.Makes.FirstOrDefault(x  => x.Id == m.MakeId).Name</td>
+                <td>@m.Name</td>
+                <td>@m.DateCreated</td>
+                <td>@Model.Users.FirstOrDefault(u => u.UserId == m.UserId).Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

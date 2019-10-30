@@ -290,3 +290,10 @@ as
 	insert into Makes (Name, DateCreated, UserId) values
 		(@Name, @DateCreated, @UserId)
 go
+
+
+create procedure CreateModel (@Name nvarchar(32), @DateCreated date, @UserId int, @MakeId int)
+as
+	insert into Models (Name, DateCreated, UserId, MakeId) values
+		(@Name, @DateCreated, @UserId, @MakeId)
+go

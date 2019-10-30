@@ -201,7 +201,19 @@ namespace MinneapolisMachines.App.Controllers
         // GET: Models
         public ActionResult Models()
         {
-            return View();
+            IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
+
+            using (var db = new AccountDbContext())
+            {
+                MakeModelViewModel viewModel = new MakeModelViewModel()
+                {
+                    Makes = vehiclesRepo.GetMakes(),
+                    Models = vehiclesRepo.GetModels(),
+                    Users = db.Users.ToList()
+                };
+
+                return View("Models", viewModel);
+            };
         }
 
         // GET: Specials
