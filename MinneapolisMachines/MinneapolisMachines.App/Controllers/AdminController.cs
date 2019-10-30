@@ -176,18 +176,26 @@ namespace MinneapolisMachines.App.Controllers
         {
             IVehiclesRepo vehiclesRepo = RepoFactory.CreateVehiclesRepo();
             var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            MakeModelViewModel viewModel = new MakeModelViewModel();
 
             using (var db = new AccountDbContext())
             {
-                string currentUserId = User.Identity.GetUserId();
-                User currentUser = db.Users.FirstOrDefault(x => x.UserId == int.Parse(currentUserId));
+                string claimUserEmail = claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.Email)).Value;
+                User loggedInUser = db.Users.FirstOrDefault(x => x.Email == claimUserEmail);
 
                 model.Make.DateCreated = DateTime.Now;
-                model.Make.UserId = currentUser.UserId;
+                model.Make.UserId = loggedInUser.UserId;
+
+                vehiclesRepo.CreateMake(model.Make.Name, model.Make.DateCreated, model.Make.UserId);
+
+                viewModel = new MakeModelViewModel()
+                {
+                    Makes = vehiclesRepo.GetMakes(),
+                    Users = db.Users.ToList()
+                };
             }
 
-
-            return View();
+            return View("Makes", viewModel);
         }
 
         // GET: Models

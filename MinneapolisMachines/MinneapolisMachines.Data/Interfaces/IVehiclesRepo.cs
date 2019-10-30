@@ -11,6 +11,8 @@ namespace MinneapolisMachines.Data.Interfaces
     {
         void Create(int modelId, int bodyTypeId, int bodyStyleId, int exteriorColorId, int interiorColorId, int transmissionTypeId, int releaseYear, string VIN, int mileage, decimal MSRP, decimal salesPrice, string description, string imageUrl);
 
+        void CreateMake(string name, DateTime dateCreated, int userId);
+
         List<Vehicle> GetAll();
 
         List<Make> GetMakes();

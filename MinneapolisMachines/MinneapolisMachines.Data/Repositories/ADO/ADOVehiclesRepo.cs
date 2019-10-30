@@ -1,5 +1,6 @@
 ﻿using MinneapolisMachines.Data.Interfaces;
 using MinneapolisMachines.Models.Vehicles;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -80,6 +81,18 @@ namespace MinneapolisMachines.Data.Repositories.ADO
         public List<Vehicle> GetFeaturedVehicles()
         {
             return Vehicle.ParseList(RunStoredProcedure(_connectionString, "GetFeaturedVehicles"));
+        }
+
+        public void CreateMake(string name, DateTime dateCreated, int userId)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter("@Name", name),
+                new SqlParameter("@DateCreated", dateCreated),
+                new SqlParameter("@UserId", userId)
+            };
+
+            RunStoredProcedure(_connectionString, "CreateMake", parameters);
         }
     }
 }

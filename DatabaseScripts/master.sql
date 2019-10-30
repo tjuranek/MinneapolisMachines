@@ -285,3 +285,8 @@ as
 	select * from Contacts
 go
 
+create procedure CreateMake (@Name nvarchar(32), @DateCreated date, @UserId int)
+as
+	insert into Makes (Name, DateCreated, UserId) values
+		(@Name, @DateCreated, @UserId)
+go
